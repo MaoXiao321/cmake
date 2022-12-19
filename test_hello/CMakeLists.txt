@@ -14,7 +14,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rd/hello/include)
 # 把目标文件和库文件连接起来
 target_link_libraries(${PROJECT_NAME} libhello.so)
 
-# 将hello.so插入到lib路径下
+# 将test_hello插入到bin路径下
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 
 
