@@ -1,22 +1,23 @@
 cmake_minimum_required(VERSION 3.5)
-project(test_hello)
-# C++11
+project(hello)
 set(CMAKE_CXX_STANDARD 11)
-# 设置安装路径
 set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR})
+set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/lib)
 
-# 添加库搜索地址
+# # 使用pkg-config查找必要的依赖包
+# find_package(OpenCV REQUIRED)
+
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rd/hello/lib)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/3rd/hello/lib/libhello.so DESTINATION lib) 
+
 # 生成可执行文件
-add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
-# 头文件地址
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rd/hello/include)
-# 把目标文件和库文件连接起来
-target_link_libraries(${PROJECT_NAME} libhello.so)
-
-# 将test_hello插入到bin路径下
-install(TARGETS ${PROJECT_NAME} DESTINATION bin)
-
-
-
-
+include_directories(
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/3rd/hello/include
+)
+add_executable(test-ji-api ${CMAKE_CURRENT_SOURCE_DIR}/test/test.cpp)
+target_link_libraries(test-ji-api
+        ${PROJECT_NAME}
+        # ${OpenCV_LIBS}
+        )
+install(TARGETS test-ji-api DESTINATION bin)
